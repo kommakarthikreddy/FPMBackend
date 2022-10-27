@@ -38,9 +38,12 @@ def PostFloor(session, *args, **kwargs):
 @SkelRes()
 def GetFloor(session, *args, **kwargs):
     logging.info("You hit floot_get method successfully")
-    request_body = request.get_json()
-    floor_no = request_body.get("floor_no")
-    building_id = request_body.get ("building_id")
+    # request_body = request.get_json()
+    floor_no = request.headers.get("floor_no")
+    building_id = request.headers.get ("building_id")
+    print("headers:{request.headers}")
+    # floor_no = request_body.get("floor_no")
+    # building_id = request_body.get ("building_id")
     data = None
     if floor_no != None and building_id != None:
         floor_data = Floor.get_by_id(session=session, floor_no=int(floor_no), building_id=int (building_id))
@@ -57,5 +60,5 @@ def GetFloor(session, *args, **kwargs):
     return {
         "_code": 200,
         "message": "Success",
-        "building_data": data
+        "floor_data": data
     }

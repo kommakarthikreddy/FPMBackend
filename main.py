@@ -1,6 +1,7 @@
 import logging
 # TODO: Fix logging
 from flask import Flask, jsonify, send_from_directory
+from flask_cors import CORS
 from lockshop.floor_plans.BuildingRoutes import PostBuilding, GetBuilding
 from lockshop.floor_plans.FloorRoutes import PostFloor, GetFloor
 from lockshop.floor_plans.DoorCategoryRoutes import PostDoorCategory, GetDoorCategory
@@ -31,7 +32,8 @@ from lockshop.floor_plans.DoorThresholdRoutes import PostDoorThreshold , GetDoor
 from lockshop.floor_plans.DoorRoutes import PostDoor
 
 app = Flask(__name__, static_folder="lockshop/static", static_url_path="/static")
-
+CORS(app)
+# resources={r"/api/*": {"origins": "*"}}
 # from app_configuration import configure_application
 # configure_application()
 
@@ -436,3 +438,5 @@ def internal_server_error(e):
         "message": ""
     }
     return jsonify(response), 500
+
+app.run()

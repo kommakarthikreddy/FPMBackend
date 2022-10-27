@@ -13,7 +13,7 @@ def SkelRes():
     def wrap(functionHandler):
         def inner_function(*args, **kwargs):
             headers = dict()
-            headers['Access-Control-Allow-Origin'] = 'true'
+            headers['Access-Control-Allow-Origin'] = '*'
             headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
             headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
             headers['Access-Control-Allow-Credentials'] = 'true'

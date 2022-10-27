@@ -1,8 +1,9 @@
-from flask import request
+from flask import request, make_response, jsonify
 import logging
 from lockshop.skel.skel_res import SkelRes
 from lockshop.sql_util.utils import session_wrap
 from .models import Building
+from flask_cors import cross_origin
 
 @session_wrap()
 @SkelRes()
@@ -37,6 +38,7 @@ def PostBuilding(session, *args, **kwargs):
 
 @session_wrap()
 @SkelRes()
+# @cross_origin()
 def GetBuilding(session, *args, **kwargs):
     logging.info("You hit test_database_get method successfully")
     id = request.args.get("id")
@@ -52,6 +54,18 @@ def GetBuilding(session, *args, **kwargs):
     else:
         records = Building.get_all(session=session)
         data = [record.sanitize() for record in records]
+
+    # response = make_response(jsonify({
+    #                                     "_code": 200,
+    #                                     "message": "Success",
+    #                                     "building_data": data}
+    #         ),
+    #         200,
+    #     )
+
+    # response.headers.set('Access-Control-Allow-Origin','*')
+
+    # return response
 
     return {
         "_code": 200,
